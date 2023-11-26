@@ -84,7 +84,7 @@ void saisie(int *valeurF) {
 
         if (sscanf(valeur, "%d", &valeursouhaitee) == 1 && valeursouhaitee >= 1 && valeursouhaitee <= 9) {
             *valeurF = valeursouhaitee;
-            conversion = 1;
+            conversion = 1;  // Pour éviter de multiples return
         } else {
             printf("Veuillez entrer un nombre entier entre 1 et 9 s'il vous plait :\n");
         }
@@ -92,7 +92,7 @@ void saisie(int *valeurF) {
 }
 
 bool possible(tGrille g, int ligne, int colonne, int valeur) {
-    bool verification = true;
+    bool verification = true;   // Pour éviter plusieurs return
 
                                                                      // Vérification de la colonne
     for (int i = 0; i < TAILLE; i++) {
@@ -103,7 +103,7 @@ bool possible(tGrille g, int ligne, int colonne, int valeur) {
     }
 
                                                                     // Vérification de la ligne
-    for (int j = 0; j < TAILLE; j++) {
+    for (int j = 0; j < TAILLE; j++) {                    
         if (j != colonne - 1 && g.grille[ligne - 1][j] == valeur) {
             printf("La valeur est déjà présente sur la ligne. Veuillez réessayer :\n");
             verification = false;
@@ -148,16 +148,16 @@ bool estGrilleComplete(tGrille g) {   // Pour verifier que le sudoku est entiere
 
 int main() {
     tGrille g; // Initialise la grille
-    int numcolonne, numligne, valeurvoulue;
-    bool grilleComplete = false;
+    int numcolonne, numligne, valeurvoulue; // valeur des colonnes/lignes/valeur
+    bool grilleComplete = false; //booleen pour une partie finit
     int souhait;
 
-    do {
+    do {          // Pour relancer une nouvelle partie si besoin
 
    
     chargerGrille(&g);
     afficherGrille(g); 
-    printf("\033[0;31m"); // Rouge
+    printf("\033[0;31m"); // Rouge  ( Couleurs optionnel)
     printf("Petit rappel des règles du jeu : \n");
     printf("- Une valeur ne peut être présente qu'une seule fois sur la même ligne / colonne / carré 3x3\n");
     printf("- Veuillez n'entrer que des entiers entre 1 et 9\n");
@@ -184,7 +184,7 @@ int main() {
     printf("Voulez-vous recommencer une nouvelle partie ? ( 1 : Oui, 2 : Non :)\n");
     scanf("%d", &souhait);                                     // corriger cette partie du code
     if ( souhait == 1 ) {
-        printf("Lancement de la nouvelle partie...\n");
+        printf("Lancement de la nouvelle partie...\n");  // texte optionnel pour signaler le chargement d'une nouvelle grille pour l'utilisateur
 
     }else {
         printf("Fin de partie. Bonne journée");
@@ -196,4 +196,4 @@ int main() {
     
     return EXIT_SUCCESS;
 
-}
+}   //fin du programme
