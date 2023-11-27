@@ -1,6 +1,6 @@
 /**
  * @file   sudokuv3.c
- * @brief  Programme principal
+ * @brief  Jeu de sudoku interractif
  * @author Lucas TORRES
  * @date   15 novembre 2023
  * @version 0.1
@@ -18,7 +18,14 @@
 
 #define TAILLE 9 // Taille de la grille de sudoku
 
-typedef struct {       // Structure pour la grille
+/**
+*
+* @typedef struct
+* @brief type tableau de TAILLE caractères. Permet la définition des dimensions du tableau. Le type typTab est un tableaui qui permet de stocker et jouer au jeu du sudoku
+* @struct struct
+*/
+
+typedef struct {       
     int grille[TAILLE][TAILLE];
 } tGrille;
 
@@ -26,7 +33,11 @@ typedef struct {       // Structure pour la grille
                         * FONCTIONS/PROCEDURES POUR LE FONCTIONNEMENT DU JEU*
                         *****************************************************/
 
-
+/**
+ * @brief Charger les valeurs de la grille de sudoku via un fichier distant
+ * @param[out] tGrille *g La grille du sudoku
+ * @fn void chargerGrille(tGrille *g)
+*/
 void chargerGrille(tGrille *g){
     char nomFichier[30];
     FILE *f;
@@ -46,6 +57,11 @@ void chargerGrille(tGrille *g){
         fclose(f);
     }
 }
+/**
+ * @brief Cette procédure permet l'affichage de la grille de sudoku dans le terminal/console
+ * @param[in] tGrille *g
+ * @fn void afficherGrille(tGrille g)
+*/
 
 void afficherGrille(tGrille g) {
     printf("      ");
@@ -72,6 +88,11 @@ void afficherGrille(tGrille g) {
          }
     }
 }
+/**
+ * @brief Cette procédure permet la saisie de valeur dans la grille de sudoku afficher plus tôt
+ * @param[out] *valeurF
+ * @fn void saisie(int *valeurF)
+*/
 
 void saisie(int *valeurF) {
     char valeur[20];
@@ -91,6 +112,15 @@ void saisie(int *valeurF) {
     } while (conversion == 0);
 }
 
+/**
+ * @brief Cette fonction retourne vrai ou faix en fonction de si la valeur placée est déja présente sur la ligne ou non. Cela permet de verifier et de respecter les règles de sudoku
+ * @fn bool possible(tGrille g, int ligne, int colonne, int valeur)
+ * @param[in] tGrille g
+ * @param[in] ligne
+ * @param[in] colonne
+ * @param[in] valeur
+ * @return booleen en fonction de si la valeur est possible ( respecte les règles ) ou pas
+*/
 bool possible(tGrille g, int ligne, int colonne, int valeur) {
     bool verification = true;   // Pour éviter plusieurs return
 
@@ -126,7 +156,12 @@ bool possible(tGrille g, int ligne, int colonne, int valeur) {
     return verification;
 }
 
-
+/**
+ * @brief Cette fonction permet de detecter quand la ligne est entièrement terminée afin de pourquoi proposer une nouvelle partie ou mettre fin à celle en cours
+ * @fn bool estGrilleComplete(tGrille g)
+ * @param[in] tGrille
+ * @return booleen oui si la grille est complète sinon non
+*/
 
 bool estGrilleComplete(tGrille g) {   // Pour verifier que le sudoku est entierement finit
     bool grilleComplete = true;   
